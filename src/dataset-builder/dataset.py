@@ -80,6 +80,7 @@ class Dataset:
         self.dataset_tree = dataset_tree
         graph_dict = self.convert_digraph_to_dict(self.dataset_tree)
         self.expanded_dataset_tree = self.convert_dict_to_digraph(graph_dict, self.data_object_classes)
+        self.check_expanded_dataset_tree()
         return
 
     def convert_digraph_to_dict(self, graph):
@@ -90,7 +91,7 @@ class Dataset:
         return {node.instance_name: recurse(node) for node in graph if graph.in_degree(node) == 0}
 
     def convert_dict_to_digraph(self, graph_dict: dict, data_object_classes: dict):
-        """Convert the nested dictionary to a NetworkX MultiDiGraph using BFS."""
+        """Convert the nested dictionary to a NetworkX MultiDiGraph using breadth-first search (BFS)."""
         dataset_tree = nx.MultiDiGraph()
         DataObject.is_singleton = False
 
@@ -119,3 +120,20 @@ class Dataset:
                 queue.append((child_node, child_dict, recurse_count + 1))
 
         return dataset_tree
+    
+    def check_expanded_dataset_tree(self):
+        """Confirm that the expanded dataset tree is valid."""
+        # Check that all nodes have <= 1 parent
+        for node in self.expanded_dataset_tree:
+            if self.expanded_dataset_tree.in_degree(node) > 1:
+                raise ValueError('Data object instance has more than one parent')
+        # Check that nodes' predecessors are the proper type
+        data_object_classes_keys = list(self.data_object_classes.keys())
+        for node in self.expanded_dataset_tree:
+            node_index = data_object_classes_keys.index(node.__class__.__name__)
+            predecessors = list(self.expanded_dataset_tree.predecessors(node))
+            if not predecessors:
+                continue
+            parent = predecessors[0]
+            if not parent.__class__.__name__ == data_object_classes_keys[node_index - 1]:
+                raise ValueError('Data object instance has an incorrect parent')
