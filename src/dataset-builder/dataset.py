@@ -52,13 +52,15 @@ class Dataset:
             file_path = file_path[1:] # Handle / at beginning
         if file_path.endswith('/'):
             file_path = file_path[:-1] # Handle / at end
+        ancestry = self.get_ancestry(data_object)
         for class_name in class_names:
+            ancestor_data_object = [a for a in ancestry if a.__class__.__name__ == class_name]
             if file_path.startswith(class_name):
-                file_path = file_path.replace(class_name + '/', data_object.instance_name + '/')
+                file_path = file_path.replace(class_name + '/', ancestor_data_object.instance_name + '/')
             if file_path.endswith(class_name):
-                file_path = file_path.replace('/' + class_name, '/' + data_object.instance_name)
+                file_path = file_path.replace('/' + class_name, '/' + ancestor_data_object.instance_name)
             else:
-                file_path = file_path.replace('/' + class_name + '/', '/' + data_object.instance_name + '/')        
+                file_path = file_path.replace('/' + class_name + '/', '/' + ancestor_data_object.instance_name + '/')        
         # Return the absolute path
         return os.path.join(self.data_folder_path, file_path) 
 
