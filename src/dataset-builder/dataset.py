@@ -40,6 +40,27 @@ class Dataset:
             raise ValueError('Data folder path does not exist')
         dataset.create_data_objects_trees()
         return dataset
+    
+    def resolve_file_path(self, data_object: DataObject) -> str:
+        """Return the resolved file path for the given data object instance.
+        NOTE: If a dict is provided (with keys as class names and values as data object names), the data object instance is retrieved first."""
+        if isinstance(data_object, dict):
+            data_object = self.get_data_object(data_object)
+        class_names = list(self.data_objects_hierarchy.values())
+        file_path = os.path.normpath(self.data_objects_file_paths)
+        if os.path.isabs(file_path):
+            file_path = file_path[1:] # Handle / at beginning
+        if file_path.endswith('/'):
+            file_path = file_path[:-1] # Handle / at end
+        for class_name in class_names:
+            if file_path.startswith(class_name):
+                file_path = file_path.replace(class_name + '/', data_object.instance_name + '/')
+            if file_path.endswith(class_name):
+                file_path = file_path.replace('/' + class_name, '/' + data_object.instance_name)
+            else:
+                file_path = file_path.replace('/' + class_name + '/', '/' + data_object.instance_name + '/')        
+        # Return the absolute path
+        return os.path.join(self.data_folder_path, file_path) 
 
     def create_data_objects_trees(self) -> None:
         """Read the data objects table and create a tree of the data objects.
