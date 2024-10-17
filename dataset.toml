@@ -1,8 +1,8 @@
 data_folder_path = "/Users/mitchelltillman/Desktop/Not_Work/Code/Python_Projects/dataset-builder/test_data"
 data_objects_hierarchy = [
-    { "Cohort" = "Cohort" },
-    { "Subject_Codename" = "Subject" },
+    { "Cohort" = "Cohort" },    
     { "Trial_Type_Task" = "Task" },    
+    { "Subject_Codename" = "Subject" },        
     { "Trial_Name_Number" = "Trial" },
 ]
 data_objects_file_paths = "Subject/Trial"

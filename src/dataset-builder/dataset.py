@@ -16,7 +16,7 @@ class Dataset:
                  data_objects_file_paths: str,
                  data_objects_table_path: str,
                  num_header_rows: int,
-                 other_columns: list,
+                 other_columns: list = [],
                  **kwargs):
         input_dict = {
             'data_folder_path': data_folder_path,
@@ -39,8 +39,9 @@ class Dataset:
         if not os.path.exists(dataset.data_objects_table_path):
             raise ValueError('Data folder path does not exist')
         dataset.create_data_objects_trees()
+        return dataset
 
-    def create_data_objects_trees(self):
+    def create_data_objects_trees(self) -> None:
         """Read the data objects table and create a tree of the data objects.
         NOTE: The tree is a NetworkX MultiDiGraph, and each node is a data object instance."""
         file_path = self.data_objects_table_path
@@ -51,6 +52,7 @@ class Dataset:
         dataset_tree = nx.MultiDiGraph()
         DataObject.is_singleton = True
         # Read the table
+        all_data_object_names = []
         with open(file_path, 'r') as file:
             # Skip the header rows
             reader = csv.DictReader(file)
@@ -63,7 +65,7 @@ class Dataset:
                 if count < self.num_header_rows - 1:
                     continue # Skip remaining header rows
 
-                row_data_objects = []
+                row_data_objects = []                
                 for column_name, class_name in self.data_objects_hierarchy.items():
                     # Retrieve the class from the data_object_classes dictionary
                     data_class = self.data_object_classes.get(class_name)
@@ -73,24 +75,34 @@ class Dataset:
                     row_data_objects.append(data_object_instance)
                     dataset_tree.add_node(data_object_instance)
 
+                all_data_object_names.append([data_object.instance_name for data_object in row_data_objects])
+
                 if len(row_data_objects) > 1:
                     for count, data_object in enumerate(row_data_objects[0:len(row_data_objects)-1]):
                         dataset_tree.add_edge(data_object, row_data_objects[count+1])
 
+        self.all_data_object_names = all_data_object_names # The CSV file as a list of lists.
         self.dataset_tree = dataset_tree
-        graph_dict = self.convert_digraph_to_dict(self.dataset_tree)
-        self.expanded_dataset_tree = self.convert_dict_to_digraph(graph_dict, self.data_object_classes)
+        self.expand_dataset_tree(self.dataset_tree)
         self._check_expanded_dataset_tree()
         return
+    
+    def expand_dataset_tree(self, dataset_tree: nx.MultiDiGraph = None) -> nx.MultiDiGraph:
+        """Expand the dataset tree to include all data object instances."""
+        if not dataset_tree:
+            dataset_tree = self.dataset_tree
+        graph_dict = self.convert_digraph_to_dict(dataset_tree)
+        self.expanded_dataset_tree = self.convert_dict_to_digraph(graph_dict, self.data_object_classes)
+        return self.expanded_dataset_tree
 
-    def convert_digraph_to_dict(self, graph):
+    def convert_digraph_to_dict(self, graph) -> dict:
         def recurse(node):
             successors = list(graph.successors(node))
             return {successor.instance_name: recurse(successor) for successor in successors}
         
         return {node.instance_name: recurse(node) for node in graph if graph.in_degree(node) == 0}
 
-    def convert_dict_to_digraph(self, graph_dict: dict, data_object_classes: dict):
+    def convert_dict_to_digraph(self, graph_dict: dict, data_object_classes: dict) -> nx.MultiDiGraph:
         """Convert the nested dictionary to a NetworkX MultiDiGraph using breadth-first search (BFS)."""
         dataset_tree = nx.MultiDiGraph()
         DataObject.is_singleton = False
@@ -117,11 +129,22 @@ class Dataset:
                 child_node = cls(child_name)
                 dataset_tree.add_node(child_node)
                 dataset_tree.add_edge(source_node, child_node)
-                queue.append((child_node, child_dict, recurse_count + 1))
+                # Check that this edge exists in the CSV file, and is not an artifact of the over-connected dataset tree
+                is_real_edge = False
+                ancestors = self.get_ancestry(child_node, expanded_dataset_tree=dataset_tree)
+                for row in self.all_data_object_names:
+                    if all([ancestor.instance_name in row for ancestor in ancestors]):
+                        is_real_edge = True
+                        break
+                if not is_real_edge:
+                    dataset_tree.remove_edge(source_node, child_node)
+                    dataset_tree.remove_node(child_node)
+                else:
+                    queue.append((child_node, child_dict, recurse_count + 1))
 
         return dataset_tree
     
-    def _check_expanded_dataset_tree(self):
+    def _check_expanded_dataset_tree(self) -> None:
         """Confirm that the expanded dataset tree is valid."""
         # Check that all nodes have <= 1 parent
         for node in self.expanded_dataset_tree:
@@ -138,10 +161,14 @@ class Dataset:
             if not parent.__class__.__name__ == data_object_classes_keys[node_index - 1]:
                 raise ValueError('Data object instance has an incorrect parent')
             
-    def get_ancestry(self, data_object_instance: DataObject) -> list:
+    def get_ancestry(self, data_object_instance: DataObject, expanded_dataset_tree: nx.MultiDiGraph = None) -> list:
         """Return the ancestry of the given data object instance. Include the instance itself."""
-        ancestor_nodes = list(nx.ancestors(self.expanded_dataset_tree, data_object_instance))
+        if not expanded_dataset_tree:
+            expanded_dataset_tree = self.expanded_dataset_tree
+        ancestor_nodes = list(nx.ancestors(expanded_dataset_tree, data_object_instance))
         ancestor_nodes.append(data_object_instance)
+        # Ensure they're in the same order as the data object classes are specified.
+        ancestor_nodes = sorted(ancestor_nodes, key=lambda x: list(self.data_object_classes.keys()).index(x.__class__.__name__))
         return ancestor_nodes
         
     def get_data_object(self, dict_of_strings: dict) -> DataObject:

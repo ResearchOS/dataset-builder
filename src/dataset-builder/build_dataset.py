@@ -10,3 +10,9 @@ def build_dataset(config_path: str):
 if __name__=='__main__':
     config_path = 'dataset.toml'
     dataset = build_dataset(config_path)
+    strings_dict = {
+        "Subject": "Nairobi",
+        "Trial": "Nairobi_006"
+    }
+    data_object = dataset.get_data_object(strings_dict)
+    ancestry = dataset.get_ancestry(data_object)
