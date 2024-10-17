@@ -38,11 +38,11 @@ class Dataset:
         dataset = cls(**config)
         if not os.path.exists(dataset.data_objects_table_path):
             raise ValueError('Data folder path does not exist')
-        dataset.create_data_objects_tree()
+        dataset.create_data_objects_trees()
 
-    def create_data_objects_tree(self):
+    def create_data_objects_trees(self):
         """Read the data objects table and create a tree of the data objects.
-        NOTE: The tree is a NetworkX MultiDiGraph, and each data object instance is a singleton."""
+        NOTE: The tree is a NetworkX MultiDiGraph, and each node is a data object instance."""
         file_path = self.data_objects_table_path
         # Convert list of dicts to dict
         self.data_objects_hierarchy = {list(d.keys())[0]: list(d.values())[0] for d in self.data_objects_hierarchy}
@@ -80,7 +80,7 @@ class Dataset:
         self.dataset_tree = dataset_tree
         graph_dict = self.convert_digraph_to_dict(self.dataset_tree)
         self.expanded_dataset_tree = self.convert_dict_to_digraph(graph_dict, self.data_object_classes)
-        self.check_expanded_dataset_tree()
+        self._check_expanded_dataset_tree()
         return
 
     def convert_digraph_to_dict(self, graph):
@@ -121,7 +121,7 @@ class Dataset:
 
         return dataset_tree
     
-    def check_expanded_dataset_tree(self):
+    def _check_expanded_dataset_tree(self):
         """Confirm that the expanded dataset tree is valid."""
         # Check that all nodes have <= 1 parent
         for node in self.expanded_dataset_tree:
@@ -137,3 +137,45 @@ class Dataset:
             parent = predecessors[0]
             if not parent.__class__.__name__ == data_object_classes_keys[node_index - 1]:
                 raise ValueError('Data object instance has an incorrect parent')
+            
+    def get_ancestry(self, data_object_instance: DataObject) -> list:
+        """Return the ancestry of the given data object instance. Include the instance itself."""
+        ancestor_nodes = list(nx.ancestors(self.expanded_dataset_tree, data_object_instance))
+        ancestor_nodes.append(data_object_instance)
+        return ancestor_nodes
+        
+    def get_data_object(self, dict_of_strings: dict) -> DataObject:
+        """Return the data object instance corresponding to the given dictionary of class names (keys) and data object names (values)."""
+        # Check the input dictionary
+        ordered_classes = list(self.data_object_classes.keys())        
+        for key, value in dict_of_strings.items():
+            if key not in ordered_classes:
+                raise ValueError('Invalid class name key in dictionary')
+        
+        # Order the dictionary by class hierarchy, and get the lowest type (the type of the data object we are looking for)
+        ordered_dict_of_strings = {key: dict_of_strings[key] for key in ordered_classes if key in dict_of_strings}
+        lowest_type = [k for k in ordered_dict_of_strings.keys()][-1]        
+
+        # Find the data object instances with the given name and type
+        data_objects_of_type_and_name = [n for n in self.expanded_dataset_tree if n.__class__.__name__ == lowest_type and n.instance_name == dict_of_strings[lowest_type]]
+        if not data_objects_of_type_and_name:
+            raise ValueError('Data object instance not found')
+
+        # Check the ancestry of each data object instance to see if it matches the input dictionary
+        data_object = None
+        for current_data_object in data_objects_of_type_and_name:
+            ancestry = self.get_ancestry(current_data_object)
+            is_match = True
+            for key, value in ordered_dict_of_strings.items():
+                if not any([ancestor.instance_name == value for ancestor in ancestry if ancestor.__class__.__name__ == key]):
+                    is_match = False
+                    break
+
+            if is_match:
+                data_object = current_data_object                
+                break
+
+        if not data_object:
+            raise ValueError('Data object instance not found')
+        
+        return data_object
