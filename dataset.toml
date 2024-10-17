@@ -1,0 +1,13 @@
+data_folder_path = "/Users/mitchelltillman/Desktop/Not_Work/Code/Python_Projects/dataset-builder/test_data"
+data_objects_hierarchy = [
+    { "Cohort" = "Cohort" },
+    { "Subject_Codename" = "Subject" },
+    { "Trial_Type_Task" = "Task" },    
+    { "Trial_Name_Number" = "Trial" },
+]
+data_objects_file_paths = "Subject/Trial"
+data_objects_table_path = "/Users/mitchelltillman/Desktop/Not_Work/Code/Python_Projects/dataset-builder/test_data_objects_table.csv"
+num_header_rows = 1
+other_columns = [
+    { "Static_Cal_Trial_Name" = "static_cal_trial_name" }
+]

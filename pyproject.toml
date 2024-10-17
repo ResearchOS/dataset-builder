@@ -6,18 +6,10 @@ build-backend = 'hatchling.build'
 [project]
 name = "dataset-builder"
 version = '0.1.0'
-description = 'A template for a Python project.'
+description = 'Create a dataset from a given TOML file.'
 authors = [{name = "Mitchell Tillman", email ="mtillman14@gmail.com"}]
-dependencies = []
-
-[tool.hatch.build]
-include = [
-    pyproject.toml,  # Include the pyproject.toml file
-    README.md,       # Include other important files like README
-    LICENSE
+dependencies = [
+    "toml",
+    "networkx",
 ]
-
-
-[tool.hatch.build.targets.wheel]
-packages = [src/"dataset-builder"]
 
