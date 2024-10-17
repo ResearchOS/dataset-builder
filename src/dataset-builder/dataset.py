@@ -185,10 +185,12 @@ class Dataset:
                 raise ValueError('Data object instance has an incorrect parent')
             
     def get_ancestry(self, data_object_instance: DataObject, expanded_dataset_tree: nx.MultiDiGraph = None) -> list:
-        """Return the ancestry of the given data object instance. Include the instance itself."""
+        """Return the ancestry of the given data object instance. Include the instance itself."""        
         if not expanded_dataset_tree:
             expanded_dataset_tree = self.expanded_dataset_tree
-        ancestor_nodes = list(nx.ancestors(expanded_dataset_tree, data_object_instance))
+        if len([n for n in expanded_dataset_tree if n == data_object_instance]) == 0:
+            raise ValueError('Data object instance not found in the expanded dataset tree')
+        ancestor_nodes = list(nx.ancestors(expanded_dataset_tree, data_object_instance))        
         ancestor_nodes.append(data_object_instance)
         # Ensure they're in the same order as the data object classes are specified.
         ancestor_nodes = sorted(ancestor_nodes, key=lambda x: list(self.data_object_classes.keys()).index(x.__class__.__name__))
