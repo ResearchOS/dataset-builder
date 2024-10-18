@@ -39,6 +39,4 @@ markdown_extensions:
       use_pygments: true
   - pymdownx.superfences
   - admonition
-nav:
-  - Home: index.md
 
