@@ -41,18 +41,16 @@ class Dataset:
         dataset.create_data_objects_trees()
         return dataset
     
-    def resolve_file_path(self, data_object: DataObject) -> str:
+    def resolve_file_path(self) -> str:
         """Return the resolved file path for the given data object instance.
-        NOTE: If a dict is provided (with keys as class names and values as data object names), the data object instance is retrieved first."""
-        if isinstance(data_object, dict):
-            data_object = self.get_data_object(data_object)
+        NOTE: If a dict is provided (with keys as class names and values as data object names), the data object instance is retrieved first."""        
         class_names = list(self.data_objects_hierarchy.values())
         file_path = os.path.normpath(self.data_objects_file_paths)
         if os.path.isabs(file_path):
             file_path = file_path[1:] # Handle / at beginning
         if file_path.endswith('/'):
             file_path = file_path[:-1] # Handle / at end
-        ancestry = self.get_ancestry(data_object)
+        ancestry = self.get_ancestry(self)
         for class_name in class_names:
             ancestor_data_object = [a for a in ancestry if a.__class__.__name__ == class_name]
             if file_path.startswith(class_name):
