@@ -1,5 +1,5 @@
 
-from constants import REQUIRED_ATTR_NAMES_LIST
+from .constants import REQUIRED_ATTR_NAMES_LIST
 
 class DictValidator:
 

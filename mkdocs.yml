@@ -39,4 +39,5 @@ markdown_extensions:
       use_pygments: true
   - pymdownx.superfences
   - admonition
+  - tables
 

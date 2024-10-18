@@ -4,9 +4,9 @@ from collections import deque
 
 import networkx as nx
 
-from validator import DictValidator
-from data_objects import create_data_object_classes
-from data_objects import DataObject
+from .validator import DictValidator
+from .data_objects import create_data_object_classes
+from .data_objects import DataObject
 
 class Dataset:
 
@@ -38,19 +38,21 @@ class Dataset:
         dataset = cls(**config)
         if not os.path.exists(dataset.data_objects_table_path):
             raise ValueError('Data folder path does not exist')
-        dataset.create_data_objects_trees()
+        dataset._create_data_objects_trees()
         return dataset
     
-    def resolve_file_path(self) -> str:
+    def resolve_file_path(self, data_object: DataObject = None, ancestry_dict: dict = None) -> str:
         """Return the resolved file path for the given data object instance.
         NOTE: If a dict is provided (with keys as class names and values as data object names), the data object instance is retrieved first."""        
+        if not data_object and ancestry_dict is not None:
+            data_object = self.get_data_object(ancestry_dict)
         class_names = list(self.data_objects_hierarchy.values())
         file_path = os.path.normpath(self.data_objects_file_paths)
         if os.path.isabs(file_path):
             file_path = file_path[1:] # Handle / at beginning
         if file_path.endswith('/'):
             file_path = file_path[:-1] # Handle / at end
-        ancestry = self.get_ancestry(self)
+        ancestry = self.get_ancestry(data_object)
         for class_name in class_names:
             ancestor_data_object = [a for a in ancestry if a.__class__.__name__ == class_name]
             if file_path.startswith(class_name):
@@ -62,7 +64,7 @@ class Dataset:
         # Return the absolute path
         return os.path.join(self.data_folder_path, file_path) 
 
-    def create_data_objects_trees(self) -> None:
+    def _create_data_objects_trees(self) -> None:
         """Read the data objects table and create a tree of the data objects.
         NOTE: The tree is a NetworkX MultiDiGraph, and each node is a data object instance."""
         file_path = self.data_objects_table_path
@@ -104,27 +106,35 @@ class Dataset:
 
         self.all_data_object_names = all_data_object_names # The CSV file as a list of lists.
         self.dataset_tree = dataset_tree
-        self.expand_dataset_tree(self.dataset_tree)
+        self._expand_dataset_tree(self.dataset_tree)
         self._check_expanded_dataset_tree()
         return
     
-    def expand_dataset_tree(self, dataset_tree: nx.MultiDiGraph = None) -> nx.MultiDiGraph:
+    def _expand_dataset_tree(self, dataset_tree: nx.MultiDiGraph = None) -> nx.MultiDiGraph:
         """Expand the dataset tree to include all data object instances."""
         if not dataset_tree:
             dataset_tree = self.dataset_tree
-        graph_dict = self.convert_digraph_to_dict(dataset_tree)
+        graph_dict = self.convert_digraph_to_dict()
         self.expanded_dataset_tree = self.convert_dict_to_digraph(graph_dict, self.data_object_classes)
         return self.expanded_dataset_tree
 
-    def convert_digraph_to_dict(self, graph) -> dict:
+    def convert_digraph_to_dict(self, graph: nx.MultiDiGraph = None) -> dict:
+        """Convert the NetworkX MultiDiGraph to a nested dictionary."""
+        if not graph:
+            graph = self.dataset_tree
         def recurse(node):
             successors = list(graph.successors(node))
             return {successor.instance_name: recurse(successor) for successor in successors}
         
         return {node.instance_name: recurse(node) for node in graph if graph.in_degree(node) == 0}
 
-    def convert_dict_to_digraph(self, graph_dict: dict, data_object_classes: dict) -> nx.MultiDiGraph:
+    def convert_dict_to_digraph(self, graph_dict: dict = None, data_object_classes: dict = None) -> nx.MultiDiGraph:
         """Convert the nested dictionary to a NetworkX MultiDiGraph using breadth-first search (BFS)."""
+        if not graph_dict:
+            graph_dict = self.convert_digraph_to_dict()
+        if not data_object_classes:
+            data_object_classes = self.data_object_classes
+
         dataset_tree = nx.MultiDiGraph()
         DataObject.is_singleton = False
 
@@ -182,14 +192,14 @@ class Dataset:
             if not parent.__class__.__name__ == data_object_classes_keys[node_index - 1]:
                 raise ValueError('Data object instance has an incorrect parent')
             
-    def get_ancestry(self, data_object_instance: DataObject, expanded_dataset_tree: nx.MultiDiGraph = None) -> list:
+    def get_ancestry(self, data_object: DataObject, expanded_dataset_tree: nx.MultiDiGraph = None) -> list:
         """Return the ancestry of the given data object instance. Include the instance itself."""        
         if not expanded_dataset_tree:
             expanded_dataset_tree = self.expanded_dataset_tree
-        if len([n for n in expanded_dataset_tree if n == data_object_instance]) == 0:
+        if len([n for n in expanded_dataset_tree if n == data_object]) == 0:
             raise ValueError('Data object instance not found in the expanded dataset tree')
-        ancestor_nodes = list(nx.ancestors(expanded_dataset_tree, data_object_instance))        
-        ancestor_nodes.append(data_object_instance)
+        ancestor_nodes = list(nx.ancestors(expanded_dataset_tree, data_object))        
+        ancestor_nodes.append(data_object)
         # Ensure they're in the same order as the data object classes are specified.
         ancestor_nodes = sorted(ancestor_nodes, key=lambda x: list(self.data_object_classes.keys()).index(x.__class__.__name__))
         return ancestor_nodes

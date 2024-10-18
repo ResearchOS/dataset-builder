@@ -1,2 +1,6 @@
 nav: 
     - Home: index.md
+    - Usage: usage.md
+    - Dataset Structure: dataset_structure.md
+    - Attributes: attributes.md    
+    - Minimal Project Structure: example.md    

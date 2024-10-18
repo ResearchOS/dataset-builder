@@ -1,5 +1,5 @@
-from config_reader import CONFIG_READER_FACTORY
-from dataset import Dataset
+from .config_reader import CONFIG_READER_FACTORY
+from .dataset import Dataset
 
 def build_dataset(config_path: str):
     """Build the dataset from the config file."""
