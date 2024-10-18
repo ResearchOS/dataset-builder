@@ -19,7 +19,7 @@ dataset_config_path = "path/to/dataset.toml"
 dataset = Dataset.build(dataset_config_path)
 
 for data_object in dataset.data_objects:
-    print(data_object.ancestry)
+    print(dataset.get_ancestry(data_object))
 ```
 
 ## Get Data Object from Ancestry

@@ -7,6 +7,7 @@ import networkx as nx
 from .validator import DictValidator
 from .data_objects import create_data_object_classes
 from .data_objects import DataObject
+from .config_reader import CONFIG_READER_FACTORY
 
 class Dataset:
 
@@ -33,8 +34,10 @@ class Dataset:
             setattr(self, attr_name, input_dict[attr_name])    
 
     @classmethod
-    def build_from_dict(cls, config: dict):
+    def build(cls, config_path: str) -> 'Dataset':
         """Build the dataset from the config."""
+        config_reader = CONFIG_READER_FACTORY.get_config_reader(config_path)
+        config = config_reader.read_config()        
         dataset = cls(**config)
         if not os.path.exists(dataset.data_objects_table_path):
             raise ValueError('Data folder path does not exist')
