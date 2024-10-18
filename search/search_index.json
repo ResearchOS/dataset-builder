@@ -1,0 +1,1 @@
+{"config":{"lang":["en"],"separator":"[\\s\\-]+","pipeline":["stopWordFilter"]},"docs":[{"location":"","title":"dataset-builder","text":"<p>This is a tool to build a dataset from a directory of files. It is designed to be used within the ResearchOS platform, but can be used independently as well.</p>"}]}
