@@ -10,23 +10,25 @@
         <meta name="author" content="Mitchell Tillman">
       
       
-        <link rel="canonical" href="https://researchos.github.io//">
+        <link rel="canonical" href="https://researchos.github.io/dataset_structure/">
       
       
+        <link rel="prev" href="../usage/">
       
-        <link rel="next" href="usage/">
+      
+        <link rel="next" href="../attributes/">
       
       
-      <link rel="icon" href="assets/images/favicon.png">
+      <link rel="icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.41">
     
     
       
-        <title>dataset-builder</title>
+        <title>Dataset Structure - dataset-builder</title>
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.0253249f.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.0253249f.min.css">
       
       
 
@@ -45,9 +47,9 @@
       
     
     
-      <link rel="stylesheet" href="assets/_mkdocstrings.css">
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
     
-    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -66,7 +68,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#dataset-builder" class="md-skip">
+        <a href="#dataset-structure" class="md-skip">
           Skip to content
         </a>
       
@@ -82,7 +84,7 @@
 
 <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="." title="dataset-builder" class="md-header__button md-logo" aria-label="dataset-builder" data-md-component="logo">
+    <a href=".." title="dataset-builder" class="md-header__button md-logo" aria-label="dataset-builder" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -102,7 +104,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Home
+              Dataset Structure
             
           </span>
         </div>
@@ -175,11 +177,9 @@
         
   
   
-    
   
-  
-    <li class="md-tabs__item md-tabs__item--active">
-      <a href="." class="md-tabs__link">
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
         
   
     
@@ -196,7 +196,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="usage/" class="md-tabs__link">
+      <a href="../usage/" class="md-tabs__link">
         
   
     
@@ -211,9 +211,11 @@
         
   
   
+    
   
-    <li class="md-tabs__item">
-      <a href="dataset_structure/" class="md-tabs__link">
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
         
   
     
@@ -230,7 +232,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="attributes/" class="md-tabs__link">
+      <a href="../attributes/" class="md-tabs__link">
         
   
     
@@ -247,7 +249,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="example/" class="md-tabs__link">
+      <a href="../example/" class="md-tabs__link">
         
   
     
@@ -287,7 +289,7 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="." title="dataset-builder" class="md-nav__button md-logo" aria-label="dataset-builder" data-md-component="logo">
+    <a href=".." title="dataset-builder" class="md-nav__button md-logo" aria-label="dataset-builder" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -314,6 +316,46 @@
       
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../usage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Usage
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
     
   
   
@@ -330,18 +372,18 @@
           
   
   <span class="md-ellipsis">
-    Home
+    Dataset Structure
   </span>
   
 
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <a href="." class="md-nav__link md-nav__link--active">
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
-    Home
+    Dataset Structure
   </span>
   
 
@@ -363,11 +405,68 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#roadmap" class="md-nav__link">
+  <a href="#data-objects" class="md-nav__link">
     <span class="md-ellipsis">
-      Roadmap
+      Data Objects
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Data Objects">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#data-objects-example-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Objects Example 1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-objects-example-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Objects Example 2
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-object-trees" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Object Trees
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Data Object Trees">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#minimal-data-object-tree" class="md-nav__link">
+    <span class="md-ellipsis">
+      Minimal Data Object Tree
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#expanded-data-object-tree" class="md-nav__link">
+    <span class="md-ellipsis">
+      Expanded Data Object Tree
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -386,47 +485,7 @@
   
   
     <li class="md-nav__item">
-      <a href="usage/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Usage
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="dataset_structure/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Dataset Structure
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="attributes/" class="md-nav__link">
+      <a href="../attributes/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -446,7 +505,7 @@
   
   
     <li class="md-nav__item">
-      <a href="example/" class="md-nav__link">
+      <a href="../example/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -486,11 +545,68 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#roadmap" class="md-nav__link">
+  <a href="#data-objects" class="md-nav__link">
     <span class="md-ellipsis">
-      Roadmap
+      Data Objects
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Data Objects">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#data-objects-example-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Objects Example 1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-objects-example-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Objects Example 2
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-object-trees" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Object Trees
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Data Object Trees">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#minimal-data-object-tree" class="md-nav__link">
+    <span class="md-ellipsis">
+      Minimal Data Object Tree
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#expanded-data-object-tree" class="md-nav__link">
+    <span class="md-ellipsis">
+      Expanded Data Object Tree
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -512,14 +628,62 @@
   
 
 
-<h1 id="dataset-builder">dataset-builder</h1>
-<p>Python package to build a Dataset, reading from a provided TOML file. Supported datasets are hierarchically structured data of any kind, with files split across folders. Each data file should represent one Data Object. Currently, multiple data objects per data file is not supported (see the <a href="#roadmap">Roadmap</a>)</p>
-<p>This Dataset package supports any type of hierarchically structured data by specifying its metadata in TOML (recommended), JSON, or YAML files. It is the second tool developed for use with the ResearchOS platform (check out the first tool to generate DAG's of a data processing pipeline, <a href="https://researchos.github.io/dagpiler/">dagpiler</a>).</p>
-<h2 id="roadmap">Roadmap</h2>
-<ul>
-<li>Support datasets that have multiple data objects per file (i.e. one or more CSV files).</li>
-<li>Support additional columns besides the <a href="attributes/#data_objects_hierarchy">data_object_hierarchy</a> columns in the <a href="attributes/#data_objects_table_path">data_objects_table</a>.</li>
-</ul>
+<h1 id="dataset-structure">Dataset Structure</h1>
+<p>After building the dataset, there are various data structures encapsulated within the dataset object. The following sections describe the structure of the dataset object and its components.</p>
+<h2 id="data-objects">Data Objects</h2>
+<p>Every entity in a dataset that data can be assigned to is called a Data Object. Each Dataset consists of one or more levels of Data Objects, structured hierarchically. </p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Data Objects are analagous to the concept of "statistical factors" in the design of experiments.</p>
+</div>
+<p>The Data Object names can be any string, and this flexibility allows this package to work with datasets containing any kind of data.</p>
+<p>Here's a couple of examples of the <a href="../attributes/#data_objects_hierarchy">data_object_hierarchy</a> attribute for a couple example Datasets with different kinds of Data Objects. Recall that the format of the <code>data_objects_hierarchy</code> attribute is an ordered list of key-value pairs. The keys are the name of a column in the <a href="../attributes/#data_objects_table_path">data_objects_table</a>, and the value is the name of the Data Object level in that column.</p>
+<h3 id="data-objects-example-1">Data Objects Example 1</h3>
+<p>A marine biologist is taking measurements of various fish species in different locations. The Data Objects in this case could be structured as follows:
+<div class="highlight"><pre><span></span><code><span class="n">data_objects_hierarchy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="s2">&quot;Location (lat., long.)&quot;</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">&quot;Location&quot;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="s2">&quot;Fish type (Latin name)&quot;</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">&quot;Species&quot;</span><span class="w"> </span><span class="p">},</span><span class="w">    </span>
+<span class="p">]</span>
+</code></pre></div></p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>Note that the column names can be any string. Optionally, they can contain additional helpful information like the units of the data to describe what the Data Object represents.</p>
+</div>
+<div class="highlight"><pre><span></span><code>| Location (lat., long.) | Species (Latin name) |
+| ---------------------- | -------------------  |
+|       Location1        |       Species1       |
+|       Location1        |       Species2       |
+|       Location2        |       Species1       |
+|       Location2        |       Species2       |
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Note that in the data objects table, there are <strong>NO</strong> measurements. This table only contains the names of the Data Objects. The actual measurements are stored in the data files.</p>
+</div>
+<h3 id="data-objects-example-2">Data Objects Example 2</h3>
+<p>A biomechanist is measuring how high people can jump under different conditions. The Data Objects in this case could be structured as follows:
+<div class="highlight"><pre><span></span><code><span class="n">data_objects_hierarchy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="w">    </span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="s2">&quot;Subject ID&quot;</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">&quot;Subject&quot;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="s2">&quot;Condition&quot;</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">&quot;Condition&quot;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="s2">&quot;Trial Name&quot;</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">&quot;Trial&quot;</span><span class="w"> </span><span class="p">},</span>
+<span class="p">]</span>
+</code></pre></div></p>
+<h2 id="data-object-trees">Data Object Trees</h2>
+<p>The Data Objects in a dataset are structured hierarchically. This hierarchy is represented as a tree (NetworkX MultiDiGraph). The tree is built from the <a href="../attributes/#data_objects_hierarchy">data_objects_hierarchy</a> and the <a href="../attributes/#data_objects_table_path">data_objects_table</a> attributes. The tree is used to navigate the dataset and access the data files.</p>
+<p>There are two types of Data Object trees:</p>
+<h3 id="minimal-data-object-tree">Minimal Data Object Tree</h3>
+<p><div class="highlight"><pre><span></span><code><span class="n">dataset</span><span class="o">.</span><span class="n">dataset_tree</span>
+</code></pre></div>
+The minimal Data Object tree is the smallest tree that can be built from the data_objects_hierarchy by minimizing the number of nodes. It's built by connecting the Data Objects in the data_objects_hierarchy in the order they are listed. Using the first Data Object example above, the tree would contain a total of four nodes, two Locations and two Species. The tree would look like this:</p>
+<p><img alt="Minimal Data Object Tree" src="../images/minimal_tree_example.png" /></p>
+<p>This tree is meant to be more visually understandable as the number of Data Objects grows, as there will not be any redundancy in the number of nodes. </p>
+<h3 id="expanded-data-object-tree">Expanded Data Object Tree</h3>
+<p><div class="highlight"><pre><span></span><code><span class="n">dataset</span><span class="o">.</span><span class="n">expanded_dataset_tree</span>
+</code></pre></div>
+The minimal tree also provides the template to create the expanded tree. The expanded tree contains unique nodes for each unique Data Object ancestry. This allows the Data Object nodes to be iterated over, to process every Data Object in a data processing pipeline.</p>
+<p>For example, the expanded tree for the first Data Object example would look like this:</p>
+<p><img alt="Expanded Data Object Tree" src="../images/expanded_tree_example.png" /></p>
+<p>This tree is used to iterate over every unique Data Object ancestry in the dataset.</p>
 
 
 
@@ -572,10 +736,10 @@
     </div>
     
     
-    <script id="__config" type="application/json">{"base": ".", "features": ["navigation.path", "navigation.tabs", "navigation.tabs.sticky", "navigation.expand", "toc.follow", "navigation.top", "content.code.copy"], "search": "assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.path", "navigation.tabs", "navigation.tabs.sticky", "navigation.expand", "toc.follow", "navigation.top", "content.code.copy"], "search": "../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="assets/javascripts/bundle.83f73b43.min.js"></script>
+      <script src="../assets/javascripts/bundle.83f73b43.min.js"></script>
       
     
   </body>

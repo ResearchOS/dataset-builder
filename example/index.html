@@ -13,10 +13,8 @@
         <link rel="canonical" href="https://researchos.github.io/example/">
       
       
-        <link rel="prev" href="..">
+        <link rel="prev" href="../attributes/">
       
-      
-        <link rel="next" href="../attributes/">
       
       
       <link rel="icon" href="../assets/images/favicon.png">
@@ -24,7 +22,7 @@
     
     
       
-        <title>Example File Structure - dataset-builder</title>
+        <title>Minimal Project Structure - dataset-builder</title>
       
     
     
@@ -68,7 +66,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#example" class="md-skip">
+        <a href="#minimal-example-project-structure" class="md-skip">
           Skip to content
         </a>
       
@@ -104,7 +102,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Example File Structure
+              Minimal Project Structure
             
           </span>
         </div>
@@ -194,16 +192,31 @@
         
   
   
-    
   
-  
-    <li class="md-tabs__item md-tabs__item--active">
-      <a href="./" class="md-tabs__link">
+    <li class="md-tabs__item">
+      <a href="../usage/" class="md-tabs__link">
         
   
     
   
-  Example File Structure
+  Usage
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../dataset_structure/" class="md-tabs__link">
+        
+  
+    
+  
+  Dataset Structure
 
       </a>
     </li>
@@ -221,6 +234,25 @@
     
   
   Attributes
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
+        
+  
+    
+  
+  Minimal Project Structure
 
       </a>
     </li>
@@ -302,6 +334,66 @@
       
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../usage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Usage
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dataset_structure/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Dataset Structure
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../attributes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Attributes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
     
   
   
@@ -318,7 +410,7 @@
           
   
   <span class="md-ellipsis">
-    Example File Structure
+    Minimal Project Structure
   </span>
   
 
@@ -329,7 +421,7 @@
         
   
   <span class="md-ellipsis">
-    Example File Structure
+    Minimal Project Structure
   </span>
   
 
@@ -381,26 +473,6 @@
   
 </nav>
       
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../attributes/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Attributes
-  </span>
-  
-
-      </a>
     </li>
   
 
@@ -476,9 +548,9 @@
   
 
 
-<h1 id="example">Example</h1>
+<h1 id="minimal-example-project-structure">Minimal Example Project Structure</h1>
 <h2 id="example-directory-structure">Example directory structure</h2>
-<p>For a small dataset consisting of .txt files, where each file represents a trial of a subject, could be structured as follows:
+<p>A small dataset consisting of .txt files, where each file contains data for one trial of one subject, could be structured as follows:
 <div class="highlight"><pre><span></span><code>/Users/my_username/my_dataset/
 ├── Subject1/
 │   ├── Trial1.txt
@@ -488,7 +560,7 @@
 │   ├── Trial2.txt
 </code></pre></div></p>
 <h2 id="example-csv-file">Example CSV file</h2>
-<p>This is the contents of the <a href="../attributes/#data_objects_table_path">data_objects_table</a> file for the above directory structure:
+<p>This is the contents of the <a href="../attributes/#data_objects_table_path">data_objects_table</a> file corresponding to the above directory structure:
 <div class="highlight"><pre><span></span><code># /Users/my_username/my_dataset/data_objects_table.csv
 | Subject Name | Trial Name |
 | ------------ | ---------  |
@@ -498,6 +570,7 @@
 |   Subject2   |   Trial2   |
 </code></pre></div></p>
 <h2 id="example-configuration-file">Example configuration file</h2>
+<p>This is the configuration file that would be used to build this dataset.
 <div class="highlight"><pre><span></span><code><span class="c1"># /Users/username/dataset.toml</span>
 <span class="n">data_folder_path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;/Users/my_username/my_dataset/&quot;</span>
 <span class="n">data_objects_hierarchy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
@@ -507,7 +580,7 @@
 <span class="n">data_objects_file_paths</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Subject/Trial&quot;</span>
 <span class="n">data_objects_table_path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;data_objects_table.csv&quot;</span>
 <span class="n">num_header_rows</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span>
-</code></pre></div>
+</code></pre></div></p>
 
 
 
