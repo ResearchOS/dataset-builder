@@ -12,6 +12,3 @@ dependencies = [
     "toml",
     "networkx",
 ]
-
-[project.scripts]
-dataset-builder = 'dataset_builder.__main__:main'
