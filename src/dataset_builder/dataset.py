@@ -2,7 +2,7 @@ import os
 import csv
 from collections import deque
 
-import networkx as nx
+from base_dag import DAG
 
 from .validator import DictValidator
 from .data_objects import create_data_object_classes
@@ -75,7 +75,7 @@ class Dataset:
         self.data_objects_hierarchy = {list(d.keys())[0]: list(d.values())[0] for d in self.data_objects_hierarchy}
         data_object_class_names = [v for v in self.data_objects_hierarchy.values()]
         self.data_object_classes = create_data_object_classes(data_object_class_names)
-        dataset_tree = nx.MultiDiGraph()
+        dataset_tree = DAG()
         DataObject.is_singleton = True
         # Read the table
         all_data_object_names = []
@@ -113,7 +113,7 @@ class Dataset:
         self._check_expanded_dataset_tree()
         return
     
-    def _expand_dataset_tree(self, dataset_tree: nx.MultiDiGraph = None) -> nx.MultiDiGraph:
+    def _expand_dataset_tree(self, dataset_tree: DAG = None) -> DAG:
         """Expand the dataset tree to include all data object instances."""
         if not dataset_tree:
             dataset_tree = self.dataset_tree
@@ -121,7 +121,7 @@ class Dataset:
         self.expanded_dataset_tree = self.convert_dict_to_digraph(graph_dict, self.data_object_classes)
         return self.expanded_dataset_tree
 
-    def convert_digraph_to_dict(self, graph: nx.MultiDiGraph = None) -> dict:
+    def convert_digraph_to_dict(self, graph: DAG = None) -> dict:
         """Convert the NetworkX MultiDiGraph to a nested dictionary."""
         if not graph:
             graph = self.dataset_tree
@@ -138,7 +138,7 @@ class Dataset:
         if not data_object_classes:
             data_object_classes = self.data_object_classes
 
-        dataset_tree = nx.MultiDiGraph()
+        dataset_tree = DAG()
         DataObject.is_singleton = False
 
         # Initialize the queue with the root nodes
@@ -195,13 +195,13 @@ class Dataset:
             if not parent.__class__.__name__ == data_object_classes_keys[node_index - 1]:
                 raise ValueError('Data object instance has an incorrect parent')
             
-    def get_ancestry(self, data_object: DataObject, expanded_dataset_tree: nx.MultiDiGraph = None) -> list:
+    def get_ancestry(self, data_object: DataObject, expanded_dataset_tree: DAG = None) -> list:
         """Return the ancestry of the given data object instance. Include the instance itself."""        
         if not expanded_dataset_tree:
             expanded_dataset_tree = self.expanded_dataset_tree
         if len([n for n in expanded_dataset_tree if n == data_object]) == 0:
             raise ValueError('Data object instance not found in the expanded dataset tree')
-        ancestor_nodes = list(nx.ancestors(expanded_dataset_tree, data_object))        
+        ancestor_nodes = list(expanded_dataset_tree.ancestors(data_object))        
         ancestor_nodes.append(data_object)
         # Ensure they're in the same order as the data object classes are specified.
         ancestor_nodes = sorted(ancestor_nodes, key=lambda x: list(self.data_object_classes.keys()).index(x.__class__.__name__))
