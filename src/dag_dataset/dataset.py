@@ -131,7 +131,7 @@ class Dataset:
         
         return {node.instance_name: recurse(node) for node in graph if graph.in_degree(node) == 0}
 
-    def convert_dict_to_digraph(self, graph_dict: dict = None, data_object_classes: dict = None) -> nx.MultiDiGraph:
+    def convert_dict_to_digraph(self, graph_dict: dict = None, data_object_classes: dict = None) -> DAG:
         """Convert the nested dictionary to a NetworkX MultiDiGraph using breadth-first search (BFS)."""
         if not graph_dict:
             graph_dict = self.convert_digraph_to_dict()
