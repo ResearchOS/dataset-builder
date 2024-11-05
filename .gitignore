@@ -4,3 +4,4 @@
 *.pyc
 /site
 *.pptx
+/dist

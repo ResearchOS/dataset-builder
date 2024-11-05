@@ -1,0 +1,13 @@
+Subject,Trial,Cohort,Task,Calibration_Trial
+subject1,trial1,ya,task1,trial1
+subject1,trial2,ya,task1,trial1
+subject1,trial3,ya,task1,trial1
+subject1,trial1,ya,task2,trial1
+subject1,trial2,ya,task2,trial1
+subject1,trial3,ya,task2,trial1
+subject2,trial1,ya,task1,trial1
+subject2,trial2,ya,task1,trial1
+subject2,trial3,ya,task1,trial1
+subject2,trial1,ya,task2,trial1
+subject2,trial2,ya,task2,trial1
+subject2,trial3,ya,task2,trial1
