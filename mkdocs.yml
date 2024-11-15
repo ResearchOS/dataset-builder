@@ -2,8 +2,8 @@
 site_name: "dataset-builder"
 site_author: "Mitchell Tillman"
 repo_name: ""
-repo_url: "https://github.com//"
-site_url: "https://researchos.github.io//"
+repo_url: "https://github.com/ResearchOS/dataset-builder"
+site_url: "https://ResearchOS.github.io/dataset-builder/"
 theme:
   name: material
   features:

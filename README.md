@@ -6,7 +6,7 @@ This Dataset package supports any type of hierarchically structured data by spec
 # Docs
 Docs can be found here: https://ResearchOS.github.io/dataset-builder/
 
-## Useage
+# Useage
 ### TOML file
 ```toml
 data_folder_path = "path/to/dataset/folder"
