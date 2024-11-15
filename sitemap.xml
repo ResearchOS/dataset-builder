@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-         <loc>https://researchos.github.io//</loc>
+         <loc>https://ResearchOS.github.io/dataset-builder/</loc>
          <lastmod>2024-11-15</lastmod>
     </url>
     <url>
-         <loc>https://researchos.github.io/attributes/</loc>
+         <loc>https://ResearchOS.github.io/dataset-builder/attributes/</loc>
          <lastmod>2024-11-15</lastmod>
     </url>
     <url>
-         <loc>https://researchos.github.io/dataset_structure/</loc>
+         <loc>https://ResearchOS.github.io/dataset-builder/dataset_structure/</loc>
          <lastmod>2024-11-15</lastmod>
     </url>
     <url>
-         <loc>https://researchos.github.io/example/</loc>
+         <loc>https://ResearchOS.github.io/dataset-builder/example/</loc>
          <lastmod>2024-11-15</lastmod>
     </url>
     <url>
-         <loc>https://researchos.github.io/usage/</loc>
+         <loc>https://ResearchOS.github.io/dataset-builder/usage/</loc>
          <lastmod>2024-11-15</lastmod>
     </url>
 </urlset>
