@@ -5,7 +5,7 @@ build-backend = 'hatchling.build'
 
 [project]
 name = "dag-dataset"
-version = '0.1.0'
+version = '0.1.1'
 description = 'Create a dataset from a given TOML file.'
 authors = [{name = "Mitchell Tillman", email ="mtillman14@gmail.com"}]
 dependencies = [
