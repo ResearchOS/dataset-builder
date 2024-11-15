@@ -18,6 +18,11 @@ other_columns = [
     { "Other_Column_Name" = "otherVariableName" }
 ]
 ```
+To construct this dataset:
+```python
+from dataset_builder import Dataset
+dataset = Dataset.build(dataset_toml)
+```
 
 ### Python
 The above TOML equates to:
