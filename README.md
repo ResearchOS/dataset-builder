@@ -21,7 +21,8 @@ other_columns = [
 To construct this dataset:
 ```python
 from dataset_builder import Dataset
-dataset = Dataset.build(dataset_toml)
+dataset_toml_file_path = "path/to/dataset.toml"
+dataset = Dataset.build(dataset_toml_file_path)
 ```
 
 ### Python

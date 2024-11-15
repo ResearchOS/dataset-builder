@@ -16,7 +16,7 @@ data_objects_hierarchy = [
     {column_name2 = "data_object_class2"},
 ]
 ```
-For the [example dataset](example.md/#example), which consists of Subject data objects that each contain multiple Trial data objects, the hierarchy would be:
+For the [example dataset](example.md), which consists of Subject data objects that each contain multiple Trial data objects, the hierarchy would be:
 ```toml
 data_objects_hierarchy = [
     { "Subject Name" = "Subject"},
