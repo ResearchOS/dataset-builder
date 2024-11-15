@@ -3,6 +3,9 @@ Build a Dataset, reading from a provided TOML file. Supported datasets are hiera
 
 This Dataset package supports any type of hierarchically structured data by specifying its metadata. It is the second tool developed for use with the ResearchOS platform (check out the first tool to generate DAG's of a data processing pipeline, [dagpiler](https://github.com/ResearchOS/dagpiler)).
 
+# Docs
+Docs can be found here: https://ResearchOS.github.io/dataset-builder/
+
 ## Useage
 ### TOML file
 ```toml
